@@ -1,0 +1,17 @@
+{{- if ( and .Values.jenkins.agentWorkdir ( and .Values.persistence.enabled ( not .Values.persistence.existingClaim ) ) ) -}}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ include "jenkins-permanent-agent-helm.fullname" . }}
+  labels:
+    {{- include "jenkins-permanent-agent-helm.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    {{- toYaml .Values.persistence.accessModes | nindent 4 }}
+  {{- if hasKey .Values.persistence "storageClass" }}
+  storageClassName: "{{ .Values.persistence.storageClass }}"
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.size | quote }}
+{{- end -}}

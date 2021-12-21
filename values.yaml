@@ -15,6 +15,7 @@ fullnameOverride: ""
 # Jenkins agent configuration
 # ref: https://hub.docker.com/r/jenkins/inbound-agent
 jenkins:
+  # agentWorkdir: "/home/jenkins/agent"
   secret: ""
   # existingSecret: ""
 

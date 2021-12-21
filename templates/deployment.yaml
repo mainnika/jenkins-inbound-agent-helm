@@ -36,6 +36,26 @@ spec:
                 secretKeyRef:
                   name: {{ template "jenkins-permanent-agent-helm.secretName" . }}
                   key: jenkins-secret
+            {{- if .Values.jenkins.url }}
+            - name: JENKINS_URL
+              value: {{ .Values.jenkins.url }}
+            {{- end }}
+            {{- if .Values.jenkins.tunnel }}
+            - name: JENKINS_TUNNEL
+              value: {{ .Values.jenkins.tunnel }}
+            {{- end }}
+            {{- if .Values.jenkins.agentName }}
+            - name: JENKINS_AGENT_NAME
+              value: {{ .Values.jenkins.agentName }}
+            {{- end }}
+            {{- if .Values.jenkins.agentWorkdir }}
+            - name: JENKINS_AGENT_WORKDIR
+              value: {{ .Values.jenkins.agentWorkdir }}
+            {{- end }}
+            {{- if .Values.jenkins.useWebSocket }}
+            - name: JENKINS_WEB_SOCKET
+              value: "true"
+            {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- if .Values.jenkins.agentWorkdir }}

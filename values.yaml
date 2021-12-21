@@ -12,6 +12,12 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+# Jenkins agent configuration
+# ref: https://hub.docker.com/r/jenkins/inbound-agent
+jenkins:
+  secret: ""
+  # existingSecret: ""
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: true

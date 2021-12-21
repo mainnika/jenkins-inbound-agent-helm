@@ -1,0 +1,4 @@
+{{- if ( and ( not .Values.jenkins.existingSecret ) ( not .Values.jenkins.secret )) }}
+     NOTE: You didn't setup jenkins secret.
+           Agent won't start without the secret.
+{{- end }}

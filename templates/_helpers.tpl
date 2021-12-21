@@ -60,3 +60,15 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Return the Secret Name
+*/}}
+{{- define "jenkins-permanent-agent-helm.secretName" -}}
+{{- if .Values.jenkins.existingSecret -}}
+    {{- printf "%s" .Values.jenkins.existingSecret -}}
+{{- else if .Values.jenkins.secret -}}
+    {{- printf "%s" ( include "jenkins-permanent-agent-helm.fullname" . ) -}}
+{{- else -}}
+{{- end -}}
+{{- end -}}

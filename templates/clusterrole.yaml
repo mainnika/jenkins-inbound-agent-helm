@@ -1,0 +1,26 @@
+{{- if .Values.rbac.create -}}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "jenkins-permanent-agent-helm.fullname" . }}
+  labels:
+    {{- include "jenkins-permanent-agent-helm.labels" . | nindent 4 }}
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - pods/exec
+      - pods/log
+    verbs:
+      - get
+{{- end -}}

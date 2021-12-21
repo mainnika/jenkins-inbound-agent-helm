@@ -56,6 +56,10 @@ spec:
             - name: JENKINS_WEB_SOCKET
               value: "true"
             {{- end }}
+            {{- range $key, $value := .Values.podEnv }}
+            - name: {{ $key }}
+              value: {{ $value }}
+            {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- if .Values.jenkins.agentWorkdir }}

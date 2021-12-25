@@ -32,10 +32,6 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
-## Install Default RBAC roles and bindings
-rbac:
-  create: true
-
 persistence:
   enabled: false
   ## A manually managed Persistent Volume and Claim

@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "jenkins-permanent-agent-helm.name" -}}
+{{- define "jenkins-inbound-agent-helm.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "jenkins-permanent-agent-helm.fullname" -}}
+{{- define "jenkins-inbound-agent-helm.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "jenkins-permanent-agent-helm.chart" -}}
+{{- define "jenkins-inbound-agent-helm.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "jenkins-permanent-agent-helm.labels" -}}
-helm.sh/chart: {{ include "jenkins-permanent-agent-helm.chart" . }}
-{{ include "jenkins-permanent-agent-helm.selectorLabels" . }}
+{{- define "jenkins-inbound-agent-helm.labels" -}}
+helm.sh/chart: {{ include "jenkins-inbound-agent-helm.chart" . }}
+{{ include "jenkins-inbound-agent-helm.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "jenkins-permanent-agent-helm.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "jenkins-permanent-agent-helm.name" . }}
+{{- define "jenkins-inbound-agent-helm.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "jenkins-inbound-agent-helm.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "jenkins-permanent-agent-helm.serviceAccountName" -}}
+{{- define "jenkins-inbound-agent-helm.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "jenkins-permanent-agent-helm.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "jenkins-inbound-agent-helm.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
@@ -64,11 +64,11 @@ Create the name of the service account to use
 {{/*
 Return the Secret Name
 */}}
-{{- define "jenkins-permanent-agent-helm.secretName" -}}
+{{- define "jenkins-inbound-agent-helm.secretName" -}}
 {{- if .Values.jenkins.existingSecret -}}
     {{- printf "%s" .Values.jenkins.existingSecret -}}
 {{- else if .Values.jenkins.secret -}}
-    {{- printf "%s" ( include "jenkins-permanent-agent-helm.fullname" . ) -}}
+    {{- printf "%s" ( include "jenkins-inbound-agent-helm.fullname" . ) -}}
 {{- else -}}
 {{- end -}}
 {{- end -}}

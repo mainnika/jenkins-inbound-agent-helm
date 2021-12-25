@@ -2,9 +2,9 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ include "jenkins-permanent-agent-helm.fullname" . }}
+  name: {{ include "jenkins-inbound-agent-helm.fullname" . }}
   labels:
-    {{- include "jenkins-permanent-agent-helm.labels" . | nindent 4 }}
+    {{- include "jenkins-inbound-agent-helm.labels" . | nindent 4 }}
 spec:
   accessModes:
     {{- toYaml .Values.persistence.accessModes | nindent 4 }}

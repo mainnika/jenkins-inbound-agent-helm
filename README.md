@@ -1,1 +1,1 @@
-jenkins-permanent-agent-helm
+jenkins-inbound-agent-helm
